@@ -110,9 +110,6 @@ registerDoctor.addEventListener('submit', (e) =>
             })
     })   
 
-
-
-
         /* ----------Get a Single Patient---------- */ 
         
 const documentReference = doc(medicalDatabase, 'patients', '4u72YLiXujJYgDZupxfk');
