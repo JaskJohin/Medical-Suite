@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Suite</title>
+</head>
+<body>
+    <h1>Medical Suite v0.1</h1>
+
+    <h2>Add Patient</h2>
+    <form class="add-patient">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <label for="email">email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" required>
+        <button type="submit">New Patient</button>
+    </form>
+
+    <h2>Delete Patient</h2>
+    <form class="delete-patient">
+        <label for="id">Patient ID:</label>
+        <input type="text" id="id" name="id" required> 
+        <button type="submit">Delete</button>
+    </form>
+
+    <h2>Register Doctor</h2>
+    <form class="register-doctor">
+        <label for="email">email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+    
+    <script src="bundle.js"></script>    
+</body>
+</html>
