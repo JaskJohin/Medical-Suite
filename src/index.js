@@ -2,7 +2,7 @@
 import {initializeApp} from 'firebase/app';
 
 /*Import only the getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot,
-query, where, orderBy, serverTimestamp and getDoc functions from the Firebase Firestore SDK*/
+query, where, orderBy, serverTimestamp, getDoc and signOut functions from the Firebase Firestore SDK*/
 import 
 {
     getFirestore, 
@@ -16,7 +16,8 @@ import
     orderBy, 
     serverTimestamp,
     getDoc,
-    updateDoc
+    updateDoc,
+    signOut
 } 
 from 'firebase/firestore';
 
@@ -121,9 +122,17 @@ loginDoctor.addEventListener('submit', (e) =>
 
             /* ----------Doctor Logout---------- */
 const logoutDoctor = document.querySelector('.logout-doctor');
-logoutDoctor.addEventListener('submit', (e) =>
+logoutDoctor.addEventListener('click', () =>
     {
-        e.preventDefault();
+        signOut(authorization)
+        .then(() => 
+            {
+                console.log('Doctor logged out');
+            })
+            .catch((error) => 
+            {
+                console.log('Error logging out: ', error.message);
+            })
     })
 
 
