@@ -2,7 +2,8 @@
 import {initializeApp} from 'firebase/app';
 
 /*Import only the getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot,
-query, where, orderBy, serverTimestamp, getDoc and signOut functions from the Firebase Firestore SDK*/
+query, where, orderBy, serverTimestamp, getDoc, signInWithEmailAndPassword and signOut 
+functions from the Firebase Firestore SDK*/
 import 
 {
     getFirestore, 
@@ -17,6 +18,7 @@ import
     serverTimestamp,
     getDoc,
     updateDoc,
+    signInWithEmailAndPassword,
     signOut
 } 
 from 'firebase/firestore';
@@ -85,6 +87,7 @@ onSnapshot(firstNameQuery, (snapshot) =>
         console.log(patients);        
     })
 
+
         /* ----------Doctor Register---------- */   
 const registerDoctor = document.querySelector('.register-doctor');
 
@@ -117,6 +120,17 @@ const loginDoctor = document.querySelector('.login-doctor');
 loginDoctor.addEventListener('submit', (e) =>
     {
         e.preventDefault();
+
+        signInWithEmailAndPassword(authorization, loginDoctor.email.value, loginDoctor.password.value)
+        .then((cred) => 
+            {
+                console.log('Doctor logged in: ', cred.user);
+                loginDoctor.reset();
+            })
+            .catch((error) => 
+            {
+                console.log('Error logging in: ', error.message);
+            })
     })
 
 
