@@ -2,8 +2,7 @@
 import {initializeApp} from 'firebase/app';
 
 /*Import only the getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot,
-query, where, orderBy, serverTimestamp, getDoc, signInWithEmailAndPassword and signOut 
-functions from the Firebase Firestore SDK*/
+query, where, orderBy, serverTimestamp, getDoc and updateDoc functions from the Firebase Firestore SDK*/
 import 
 {
     getFirestore, 
@@ -17,17 +16,19 @@ import
     orderBy, 
     serverTimestamp,
     getDoc,
-    updateDoc,
-    signInWithEmailAndPassword,
-    signOut
+    updateDoc
 } 
 from 'firebase/firestore';
 
-/*Import only the getAuth and createUserWithEmailAndPassword functions from the Firebase Auth SDK*/
+/*Import only the getAuth, createUserWithEmailAndPassword, 
+signInWithEmailAndPassword, signOut and onAuthStateChanged functions from the Firebase Auth SDK*/
 import
 {
     getAuth,
-    createUserWithEmailAndPassword 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged 
 } from 'firebase/auth';
 
 //Firebase configuration object
@@ -103,6 +104,7 @@ registerDoctor.addEventListener('submit', (e) =>
 
         //Create a new user with the email and password values using the createUserWithEmailAndPassword function
         createUserWithEmailAndPassword(authorization, email, password)
+        //Use a promise to handle the success and error cases. If the doctor is successfully registered, reset the form.
         .then((cred) => 
             {
                 console.log('Doctor Registered: ', cred.user);
@@ -121,10 +123,12 @@ loginDoctor.addEventListener('submit', (e) =>
     {
         e.preventDefault();
 
+        //Sign in the doctor with the email and password values using the signInWithEmailAndPassword function
         signInWithEmailAndPassword(authorization, loginDoctor.email.value, loginDoctor.password.value)
+        //Use a promise to handle the success and error cases. If the doctor is successfully logged in, reset the form.
         .then((cred) => 
             {
-                console.log('Doctor logged in: ', cred.user);
+                //console.log('Doctor logged in: ', cred.user);
                 loginDoctor.reset();
             })
             .catch((error) => 
@@ -139,15 +143,33 @@ const logoutDoctor = document.querySelector('.logout-doctor');
 logoutDoctor.addEventListener('click', () =>
     {
         signOut(authorization)
+        //Use a promise to handle the success and error cases.
         .then(() => 
             {
-                console.log('Doctor logged out');
+                //console.log('Doctor logged out');
             })
             .catch((error) => 
             {
                 console.log('Error logging out: ', error.message);
             })
     })
+
+
+        /*Subscribing to Auth changes*/
+
+/*Listen for changes in the doctor's authentication state using the onAuthStateChanged function.
+ So, every time the user logs in or out, the console will log the user object or null respectively.*/ 
+onAuthStateChanged(authorization, (user) =>
+    {
+        if(user)
+            {
+                console.log('Doctor logged in: ', user);
+            }
+            else
+            {
+                console.log('Doctor logged out');
+            }
+        })   
 
 
         /* ----------Get a Single Patient---------- */ 
@@ -165,6 +187,7 @@ onSnapshot(documentReference, (doc) =>
                 console.log('No such patient!');
             }
     })
+
 
         /* ----------Add a New Patient---------- */
 
