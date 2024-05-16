@@ -112,9 +112,21 @@ registerDoctor.addEventListener('submit', (e) =>
 
 
         /* ----------Doctor Login---------- */
+const loginDoctor = document.querySelector('.login-doctor');
+loginDoctor.addEventListener('submit', (e) =>
+    {
+        e.preventDefault();
+    })
 
 
-        
+            /* ----------Doctor Logout---------- */
+const logoutDoctor = document.querySelector('.logout-doctor');
+logoutDoctor.addEventListener('submit', (e) =>
+    {
+        e.preventDefault();
+    })
+
+
         /* ----------Get a Single Patient---------- */ 
         
 const documentReference = doc(medicalDatabase, 'patients', '4u72YLiXujJYgDZupxfk');
